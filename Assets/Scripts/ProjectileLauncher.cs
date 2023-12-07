@@ -5,7 +5,13 @@ namespace MiniTowerDefence
     public abstract class ProjectileLauncher : MonoBehaviour
     {
         [SerializeField]
-        protected GameObject projectilePrefab;
+        protected Bullet projectilePrefab;
+        
+        [SerializeField]
+        protected Vector3 speed;
+
+        [SerializeField]
+        protected float damage;
 
         protected Transform spawnPoint;
 
@@ -14,6 +20,11 @@ namespace MiniTowerDefence
         public void SetSpawnPoint(Transform t)
         {
             spawnPoint = t;
+        }
+
+        public void SetDamage(float value)
+        {
+            damage = value;
         }
     }
 }

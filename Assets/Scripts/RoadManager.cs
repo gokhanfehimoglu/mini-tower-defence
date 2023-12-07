@@ -1,18 +1,12 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace MiniTowerDefence
 {
-    public class RoadManager : MonoBehaviour
+    public class RoadManager : Singleton<RoadManager>
     {
         [SerializeField]
         private RoadChain roadChain;
-
-        [SerializeField]
-        private float speed = 5f;
-
-        [SerializeField]
-        private Transform enemy;
 
         private float _percentage;
         private RoadSegment[] _segments;
@@ -35,19 +29,7 @@ namespace DefaultNamespace
             _totalRoadLength = _segmentLengths.Sum();
         }
 
-        private void Update()
-        {
-            if (_percentage > 1f) _percentage = 0;
-
-            var point = GetRoadPoint(_percentage);
-            
-            enemy.position = point.pos;
-            enemy.rotation = point.rot;
-
-            _percentage += Time.deltaTime * speed;
-        }
-
-        private OrientedPoint GetRoadPoint(float percentage)
+        public OrientedPoint GetRoadPoint(float percentage)
         {
             var startDist = 0f;
             var startPercentage = 0f;

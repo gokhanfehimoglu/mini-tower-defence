@@ -1,7 +1,7 @@
 ﻿using DefaultNamespace;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MiniTowerDefence
 {
@@ -18,6 +18,24 @@ namespace MiniTowerDefence
 
         [SerializeField]
         private CanvasGroup bottomShadow;
+
+        [SerializeField]
+        private TMP_Text turretUpgradePriceText;
+
+        [SerializeField]
+        private TMP_Text turretLevelText;
+
+        [SerializeField]
+        private CustomButton turretUpgradeButton;
+        
+        [SerializeField]
+        private TMP_Text towerUpgradePriceText;
+
+        [SerializeField]
+        private TMP_Text towerLevelText;
+
+        [SerializeField]
+        private CustomButton towerUpgradeButton;
 
         private GameObject _currentActiveUi;
         private ISelectable _currentSelectable;
@@ -36,9 +54,9 @@ namespace MiniTowerDefence
                 return;
             }
 
-            if (!hit.transform.TryGetComponent(typeof(ISelectable), out var selectableComponent)) return;
+            if (!hit.transform.TryGetComponent(typeof(SelectableDataBridge), out var selectableDataBridge)) return;
 
-            var selectable = (ISelectable)selectableComponent;
+            var selectable = ((SelectableDataBridge)selectableDataBridge).GetSelectable();
 
             if (_currentSelectable == selectable) return;
 
@@ -68,7 +86,7 @@ namespace MiniTowerDefence
 
             panel.SetActive(true);
             panel.transform.DOScale(Vector3.one, 0.2f);
-            
+
             bottomShadow.DOFade(1f, .2f);
 
             _currentActiveUi = panel;
@@ -76,12 +94,76 @@ namespace MiniTowerDefence
 
         private GameObject GetUi(SelectableType type)
         {
-            return type switch
+            switch (type)
             {
-                SelectableType.Tower => towerSelectUi,
-                SelectableType.Turret => turretSelectUi,
-                _ => null
-            };
+                case SelectableType.Turret:
+                    var turret = (Turret)_currentSelectable;
+
+                    if (turret.IsLevelMax())
+                    {
+                        turretUpgradePriceText.SetText("MAXED");
+                        turretUpgradeButton.SetColor(Color.gray);
+                        turretUpgradeButton.SetDisabled();
+                    }
+                    else
+                    {
+                        turretLevelText.SetText("UPGRADE TO LEVEL " + (turret.GetLevel() + 1));
+                        turretUpgradePriceText.SetText(turret.GetPrice() + "");
+                        ColorUtility.TryParseHtmlString("#0094FF", out var newColor);
+                        turretUpgradeButton.SetColor(newColor);
+                        turretUpgradeButton.SetEnabled();
+                    }
+
+                    return turretSelectUi;
+                case SelectableType.Tower:
+                    if (TowerManager.Instance.IsLevelMax())
+                    {
+                        towerUpgradePriceText.SetText("MAXED");
+                        towerUpgradeButton.SetColor(Color.gray);
+                        towerUpgradeButton.SetDisabled();
+                    }
+                    else
+                    {
+                        towerLevelText.SetText("ADD NEW TURRET");
+                        towerUpgradePriceText.SetText(TowerManager.Instance.GetPrice() + "");
+                        ColorUtility.TryParseHtmlString("#0094FF", out var newColor);
+                        turretUpgradeButton.SetColor(newColor);
+                        towerUpgradeButton.SetEnabled();
+                    }
+                    
+                    return towerSelectUi;
+            }
+
+            return null;
+        }
+
+        public void UpgradeTurretClicked()
+        {
+            var turret = (Turret)_currentSelectable;
+            var price = turret.GetPrice();
+            var purchased = CurrencyManager.Instance.Spend((int)price);
+            if (!purchased)
+            {
+                print("not enough money");
+                return;
+            }
+            
+            ((Turret)_currentSelectable).LevelUp();    
+            OpenUiPanel(GetUi(_currentSelectable.GetSelectableType()));
+        }
+        
+        public void AddTurretClicked()
+        {
+            var price = TowerManager.Instance.GetPrice();
+            var purchased = CurrencyManager.Instance.Spend((int)price);
+            if (!purchased)
+            {
+                print("not enough money");
+                return;
+            }
+            
+            TowerManager.Instance.LevelUp();    
+            OpenUiPanel(GetUi(_currentSelectable.GetSelectableType()));
         }
     }
 }

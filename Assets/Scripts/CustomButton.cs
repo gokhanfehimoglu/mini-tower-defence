@@ -13,6 +13,9 @@ namespace MiniTowerDefence
         [SerializeField]
         private Image shadowBox;
 
+        [SerializeField]
+        private Button button;
+
         private Tween _tween;
 
         public void OnPointerDown(PointerEventData eventData)
@@ -32,6 +35,17 @@ namespace MiniTowerDefence
             colorBox.color = color;
             Color.RGBToHSV(color, out var h, out var s, out var v);
             shadowBox.color = Color.HSVToRGB(h, s, v - 0.2f);
+        }
+
+        public void SetDisabled()
+        {
+            button.interactable = false;
+        }
+
+        public void SetEnabled()
+        {
+            // #0094FF
+            button.interactable = true;
         }
     }
 }

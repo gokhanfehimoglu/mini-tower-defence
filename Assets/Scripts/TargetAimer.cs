@@ -23,6 +23,8 @@ namespace MiniTowerDefence
 
         private void LateUpdate()
         {
+            if (!_hasTarget) return;
+            
             Aim();
         }
 
@@ -35,9 +37,9 @@ namespace MiniTowerDefence
 
         public void ClearTarget()
         {
+            _hasTarget = false;
             _currentTarget = null;
             _resetting = true;
-            _hasTarget = false;
         }
 
         public void SetTarget(TargetableBehaviour target) => SetTarget(target.TargetPoint);

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2cfe4b1db544b8c9b7af402f0923ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 7708283554141743976, guid: dfd5d0954c9ac624c81d50597b43eb92,
+  projectilePrefab: {fileID: 5382632884827515829, guid: dfd5d0954c9ac624c81d50597b43eb92,
     type: 3}
   speed: {x: 0, y: 0, z: 80}
+  damage: 5

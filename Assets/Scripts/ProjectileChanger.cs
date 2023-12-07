@@ -7,6 +7,9 @@ namespace MiniTowerDefence
         [SerializeField]
         private Transform spawnPoint;
 
+        [SerializeField]
+        private Turret turret;
+
         private ProjectileLauncher _currentLauncher;
         private LauncherType _launcherType;
 
@@ -20,20 +23,16 @@ namespace MiniTowerDefence
             }
         }
 
-        private void Start()
-        {
-            AddLauncher();
-        }
-
-        private void AddLauncher()
+        public void AddLauncher()
         {
             if (_currentLauncher != null)
             {
-                Destroy(_currentLauncher);
+                Destroy(_currentLauncher.gameObject);
             }
 
             _currentLauncher = Instantiate(ProjectileLauncherProvider.Instance.GetLauncher(LauncherType), transform);
             _currentLauncher.SetSpawnPoint(spawnPoint);
+            _currentLauncher.SetDamage(turret.GetDamage());
         }
 
         public void Launch()

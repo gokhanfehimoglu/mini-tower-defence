@@ -4,13 +4,12 @@ namespace MiniTowerDefence
 {
     public class BulletLauncher : ProjectileLauncher
     {
-        [SerializeField]
-        private Vector3 speed;
-        
         public override void Launch()
         {
             var bullet = Instantiate(projectilePrefab, spawnPoint.position,
                 Quaternion.LookRotation(spawnPoint.transform.up));
+
+            bullet.damage = damage;
 
             if (bullet.TryGetComponent(out Rigidbody rb))
             {

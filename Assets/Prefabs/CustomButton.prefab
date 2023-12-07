@@ -522,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorBox: {fileID: 7912404102230316871}
   shadowBox: {fileID: 7912404100729392575}
+  button: {fileID: 7912404101994282986}
 --- !u!1 &7912404102230316865
 GameObject:
   m_ObjectHideFlags: 0

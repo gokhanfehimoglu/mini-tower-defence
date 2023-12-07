@@ -34,5 +34,11 @@ namespace MiniTowerDefence
         {
             onTimerEnd?.Invoke();
         }
+
+        public void SetDuration(float newDuration)
+        {
+            duration = newDuration;
+            ResetTimer();
+        }
     }
 }
