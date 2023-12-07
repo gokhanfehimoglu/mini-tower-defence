@@ -59,7 +59,7 @@ namespace MiniTowerDefence
         {
             yield return new WaitForSeconds(1f);
             
-            currentWaveText.SetText("WAVE " + (GetCurrentWave() + 1));
+            currentWaveText.SetText("Wave " + (GetCurrentWave() + 1));
 
             var meleeEnemyCount = PersistentWaveManager.Instance.GetCurrentLevelData().meleeEnemyCount;
             var rangedEnemyCount = PersistentWaveManager.Instance.GetCurrentLevelData().rangedEnemyCount;
