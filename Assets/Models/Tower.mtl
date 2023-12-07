@@ -1,0 +1,22 @@
+# Blender 3.4.1 MTL File: 'None'
+# www.blender.org
+
+newmtl Ground.001
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/gkhns/Downloads/Fiber Games Case Study/defense-tower-done-on-a-phone-with-spacedraw/textures/Spacedraw-Tower-Final_Ground_color.png
+
+newmtl Material__25.001
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/gkhns/Downloads/Fiber Games Case Study/defense-tower-done-on-a-phone-with-spacedraw/textures/Spacedraw-Tower-Final_Tower_color.png
